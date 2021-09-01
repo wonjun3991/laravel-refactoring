@@ -1,0 +1,108 @@
+<?php
+
+namespace Tests\Unit;
+
+use App\Consultants\ClinicCounselor;
+use Tests\TestCase;
+
+class ClinicCounselorTest extends TestCase
+{
+    use AllLifeStyleTagProvider;
+
+    const MEDICATIONS = 'Medication';
+    const LIPOSUCTION = 'Liposuction';
+    const GASTRIC_BYPASS = 'Gastric Bypass';
+
+    private $expectedSolutions = [
+        self::MEDICATIONS,
+        self::LIPOSUCTION,
+        self::GASTRIC_BYPASS,
+    ];
+
+    /**
+     * @test
+     * @testdox ClinicCounselor 가 반환하는 솔루션은 어떠한 경우에도 ClinicCounselor 클래스 내부의 solutions 안에 정의되어 있어야한다.
+     * @dataProvider allLifeStyleTagProvider
+     */
+    public function 추천_모든_경우의_수($isRich, $hasAStrongWill, $hasGoodHealth, $hasEnoughTime)
+    {
+        $clinicCounselor = new ClinicCounselor();
+
+        $solution = $clinicCounselor->recommend($isRich, $hasAStrongWill, $hasGoodHealth, $hasEnoughTime);
+
+
+        $solutions = $this->expectedSolutions;
+        $this->assertTrue(in_array($solution, $solutions));
+    }
+
+    /**
+     * @test
+     * @testdox isRich 가 true 고 hasAStrongWill 이 false 일 경우 'Gastric Bypass' (위장접합술)을 추천해야 한다.
+     * @testWith [false, false]
+     * [false, true]
+     * [true, false]
+     * [true, true]
+     */
+    public function 추천_돈많고_의지없으면_위장접합술($hasGoodHealth, $hasEnoughTime)
+    {
+        $clinicCounselor = new ClinicCounselor();
+        $isRich = true;
+        $hasAStrongWill = false;
+
+        $solution = $clinicCounselor->recommend($isRich, $hasAStrongWill, $hasGoodHealth, $hasEnoughTime);
+
+        $expected = self::GASTRIC_BYPASS;
+        $this->assertSame($expected, $solution);
+    }
+
+    /**
+     * @test
+     * @testdox isRich 가 false 이거나 hasAStrongWill 이 true 고 hasGoodHealth가 true 면 'Medications' (약물)을 추천해야 한다.
+     * @testWith [true]
+     * [false]
+     */
+    public function 추천_돈없거나_의지가있고_건강이_좋으면_약물($hasEnoughTime)
+    {
+        $clinicCounselor = new ClinicCounselor();
+
+        // 이 테스트에서 모든 기대 값은 'Medications' 이다.
+        $expected = self::MEDICATIONS;
+
+        $hasGoodHealth = true;
+        // 돈 없고 의지도 없을 때
+        // isRich 가 false 이고 hasAStrongWill 이 false 일때
+        $isRich = false;
+        $hasAStrongWill = false;
+
+
+        $solution = $clinicCounselor->recommend($isRich, $hasAStrongWill, $hasGoodHealth, $hasEnoughTime);
+
+        $this->assertSame($expected, $solution);
+
+        // 돈없고 의자가 있을 때
+        // isRich 가 false 이고 hasAStrongWill 이 true 일때
+        $isRich = false;
+        $hasAStrongWill = true;
+
+        $solution = $clinicCounselor->recommend($isRich, $hasAStrongWill, $hasGoodHealth, $hasEnoughTime);
+        $this->assertSame($expected, $solution);
+
+        // 돈있고 의자기 있을 때
+        // isRich 가 true 이고 hasAStrongWill 이 true 일때
+        $isRich = true;
+        $hasAStrongWill = true;
+
+        $solution = $clinicCounselor->recommend($isRich, $hasAStrongWill, $hasGoodHealth, $hasEnoughTime);
+        $this->assertSame($expected, $solution);
+    }
+
+    /**
+     * php 버전이 7.0 이라 현재는 private const를 지원하지 않지만 지원하게 되면 리플렉션을 이용하면 private 값을 가져와서 테스트 할 수 있기에
+     * 리플렉션을 이용하여 솔루션 데이터 가져오기 이런식으로 가져온 값들을 사용하면 테스트가 깨지지 않으나 유닛테스트는 고정된 값으로 테스트하는게 맞지 않나 싶기도 함
+     */
+//    public function getSolutions()
+//    {
+//        $reflectionClinicCounselor = new \ReflectionClass('App\Consultants\ClinicCounselor');
+//        return array_values($reflectionClinicCounselor->getConstants());
+//    }
+}
