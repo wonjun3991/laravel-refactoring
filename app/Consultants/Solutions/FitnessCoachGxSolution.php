@@ -4,10 +4,23 @@
 namespace App\Consultants\Solutions;
 
 
-class FitnessCoachGxSolution extends Solution
+use Spatie\Enum\Enum;
+
+/**
+ * @method static self YOGA()
+ * @method static self SPINNING()
+ * @method static self ZUMBA()
+ * @method static self BODY_SCULPT()
+ */
+class FitnessCoachGxSolution extends Enum
 {
-    const YOGA = 'Yoga';
-    const SPINNING = 'Spinning';
-    const ZUMBA = 'Zumba';
-    const BODY_SCULPT = 'Body Sculpt';
+    protected static function values(): array
+    {
+        return [
+            'YOGA' => 'Yoga',
+            'SPINNING' => 'Spinning',
+            'ZUMBA' => 'Zumba',
+            'BODY_SCULPT' => 'Body Sculpt'
+        ];
+    }
 }

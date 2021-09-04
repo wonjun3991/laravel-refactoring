@@ -4,9 +4,21 @@
 namespace App\Consultants\Solutions;
 
 
-class FitnessCoachSolution extends Solution
+use Spatie\Enum\Enum;
+
+/**
+ * @method static self CONDITIONING()
+ * @method static self CARDIOVASCULAR()
+ * @method static self STRENGTH()
+ */
+class FitnessCoachSolution extends Enum
 {
-    const CONDITIONING = 'Conditioning';
-    const CARDIOVASCULAR = 'Cardiovascular';
-    const STRENGTH = 'Strength';
+    protected static function values(): array
+    {
+        return [
+            'CONDITIONING' => 'Conditioning',
+            'CARDIOVASCULAR' => 'Cardiovascular',
+            'STRENGTH' => 'Strength'
+        ];
+    }
 }

@@ -4,17 +4,24 @@
 namespace App\Consultants;
 
 
-use App\Utils\EnumUtils;
+use Spatie\Enum\Enum;
 
-class LifeStyleTag
+
+/**
+ * @method static self RICH()
+ * @method static self TIME()
+ * @method static self HEALTH()
+ * @method static self WILL()
+ */
+class LifeStyleTag extends Enum
 {
-    const RICH = 'rich';
-    const TIME = 'enough_time';
-    const HEALTH = 'healthy';
-    const WILL = 'strong_will';
-
-    static public function getLifeStyleTags(): array
+    protected static function values()
     {
-        return EnumUtils::getConstants(static::class);
+        return [
+            'RICH' => 'rich',
+            'TIME' => 'enough_time',
+            'HEALTH' => 'healthy',
+            'WILL' => 'strong_will'
+        ];
     }
 }

@@ -1,19 +1,22 @@
 <?php
 
-
 namespace App\Consultants;
 
+use Spatie\Enum\Enum;
 
-use App\Utils\EnumUtils;
-
-class PreferredType
+/**
+ * @method static self DIET()
+ * @method static self FITNESS()
+ * @method static self CLINIC()
+ */
+class PreferredType extends Enum
 {
-    const DIET = 'DIET';
-    const FITNESS = 'FITNESS';
-    const CLINIC = 'CLINIC';
-
-    static public function getPreferredTypes(): array
+    protected static function values()
     {
-        return EnumUtils::getConstants(static::class);
+        return [
+            'DIET' => 'DIET',
+            'FITNESS' => 'FITNESS',
+            'CLINIC' => 'CLINIC'
+        ];
     }
 }

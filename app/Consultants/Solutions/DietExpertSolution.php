@@ -1,12 +1,22 @@
 <?php
 
-
 namespace App\Consultants\Solutions;
 
+use Spatie\Enum\Enum;
 
-class DietExpertSolution extends Solution
+/**
+ * @method static self INTERMITTENT_FASTING()
+ * @method static self EAT_LESS_PLEASE()
+ * @method static self LCHF()
+ */
+class DietExpertSolution extends Enum
 {
-    const INTERMITTENT_FASTING = 'Intermittent Fasting';
-    const EAT_LESS_PLEASE = 'Eat less please';
-    const LCHF = 'LCHF';
+    protected static function values()
+    {
+        return [
+            'INTERMITTENT_FASTING' => 'Intermittent Fasting',
+            'EAT_LESS_PLEASE' => 'Eat less please',
+            'LCHF' => 'LCHF'
+        ];
+    }
 }

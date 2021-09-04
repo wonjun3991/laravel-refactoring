@@ -12,5 +12,5 @@ interface Consultant
      * @param bool $hasGoodHealth
      * @param bool $hasEnoughTime
      */
-    public function recommend(bool $isRich, bool $hasAStrongWill, bool $hasGoodHealth, bool $hasEnoughTime);
+    public function recommend(bool $isRich, bool $hasAStrongWill, bool $hasGoodHealth, bool $hasEnoughTime): string;
 }

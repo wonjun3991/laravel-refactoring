@@ -9,15 +9,15 @@ class PersonalTrainer
     /**
      * @var ClinicCounselor
      */
-    protected $clinicCounselor;
+    protected ClinicCounselor $clinicCounselor;
     /**
      * @var DietExpert
      */
-    protected $dietExpert;
+    protected DietExpert $dietExpert;
     /**
      * @var FitnessCoach
      */
-    protected $fitnessCoach;
+    protected FitnessCoach $fitnessCoach;
 
     /**
      * PersonalTrainer constructor.
@@ -27,8 +27,8 @@ class PersonalTrainer
      */
     public function __construct(
         ClinicCounselor $clinicCounselor,
-        DietExpert $dietExpert,
-        FitnessCoach $fitnessCoach
+        DietExpert      $dietExpert,
+        FitnessCoach    $fitnessCoach
     )
     {
         $this->clinicCounselor = $clinicCounselor;
@@ -40,11 +40,11 @@ class PersonalTrainer
     {
         foreach ($preferredTypes as $preferredType) {
             switch ($preferredType) {
-                case PreferredType::DIET:
+                case PreferredType::DIET()->value:
                     return $this->dietExpert->recommend($isRich, $hasAStrongWill, $hasGoodHealth, $hasEnoughTime);
-                case PreferredType::FITNESS:
+                case PreferredType::FITNESS()->value:
                     return $this->fitnessCoach->recommend($isRich, $hasAStrongWill, $hasGoodHealth, $hasEnoughTime);
-                case PreferredType::CLINIC:
+                case PreferredType::CLINIC()->value:
                     return $this->clinicCounselor->recommend($isRich, $hasAStrongWill, $hasGoodHealth, $hasEnoughTime);
             }
         }

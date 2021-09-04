@@ -8,6 +8,9 @@ use App\Consultants\FitnessCoach;
 use App\Consultants\PersonalTrainer;
 use Tests\TestCase;
 
+/**
+ * @coversDefaultClass \App\Consultants\PersonalTrainer
+ */
 class PersonalTrainerTest extends TestCase
 {
     use AllLifeStyleTagProvider;
@@ -15,6 +18,7 @@ class PersonalTrainerTest extends TestCase
     /**
      * @test
      * @testdox 피트니스를 선호할 시 FitnessCoach 객체로 부터 솔루션을 받아야 한다.
+     * @covers ::recommend
      * @dataProvider allLifeStyleTagProvider
      */
     public function 추천_피트니스_선호($isRich, $hasAStrongWill, $hasGoodHealth, $hasEnoughTime)
@@ -34,6 +38,7 @@ class PersonalTrainerTest extends TestCase
     /**
      * @test
      * @testdox 식이요법을 선호할 시 DietExpert 객체로 부터 솔루션을 받아야 한다.
+     * @covers ::recommend
      * @dataProvider allLifeStyleTagProvider
      */
     public function 추천_식이요법_선호($isRich, $hasAStrongWill, $hasGoodHealth, $hasEnoughTime)
@@ -53,6 +58,7 @@ class PersonalTrainerTest extends TestCase
     /**
      * @test
      * @testdox 클리닉을 선호할 시 ClinicCounselor 객체로 부터 솔루션을 받아야 한다.
+     * @covers ::recommend
      * @dataProvider allLifeStyleTagProvider
      */
     public function 추천_클리닉_선호($isRich, $hasAStrongWill, $hasGoodHealth, $hasEnoughTime)

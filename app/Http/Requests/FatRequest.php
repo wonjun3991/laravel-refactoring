@@ -17,8 +17,8 @@ class FatRequest extends FormRequest
     public function rules()
     {
         return [
-            'life_style_tag' => ['required', 'array', Rule::in(LifeStyleTag::getLifeStyleTags())],
-            'preferred_types_order' => ['required', 'array', Rule::in(PreferredType::getPreferredTypes())]
+            'life_style_tag' => ['required', 'array', Rule::in(LifeStyleTag::toValues())],
+            'preferred_types_order' => ['required', 'array', Rule::in(PreferredType::toValues())]
         ];
     }
 }
